@@ -1,0 +1,9 @@
+#! /usr/bin/env zsh
+if [[ -r ~/.zshrc ]]; then
+    source ~/.zshrc
+fi
+ii=`echo $@`
+filename=`echo $ii | awk -F ':' '{print $1}'`
+lineNo=`echo $ii | awk -F ':' '{print $2}'`
+partCode=`echo $ii | awk -F ':[0-9]+: *' '{print $2}'`
+so $filename

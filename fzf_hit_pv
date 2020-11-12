@@ -1,0 +1,14 @@
+#! /usr/bin/env zsh
+if [[ -r ~/.zshrc ]]; then
+    source ~/.zshrc
+fi
+ii=`echo $@`
+filename=`echo $ii | awk -F ':' '{print $1}'`
+lineNo=`echo $ii | awk -F ':' '{print $2}'`
+partCode=`echo $ii | awk -F ':[0-9]+: *' '{print $2}'`
+cmd0='{x='$lineNo'-NR; if (x >= -10 && x <= 10) {print $0}}'
+cat $filename | awk $cmd0 | rg -C7 \
+--color always \
+--colors 'match:bg:black' \
+--colors 'match:fg:white' \
+-F $partCode
